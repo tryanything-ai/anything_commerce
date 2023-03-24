@@ -1,0 +1,14 @@
+{
+  "name": "Anything",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/anything-protocol/Anything.git",
+  "author": "Carl Lippert <carl.lippert@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "format": "prettier --write '**/*.move'"
+  },
+  "dependencies": {
+    "prettier": "^2.8.7"
+  }
+}
