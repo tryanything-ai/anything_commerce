@@ -1,9 +1,9 @@
 module anything::product_module {
 
-    use std::ascii::{Self, String};
-    use sui::object::{Self, UID};
-    use sui::transfer;
-    use sui::tx_context::{Self, TxContext};
+    use std::ascii::{String};
+    use sui::object::{UID};
+    // use sui::transfer;
+    // use sui::tx_context::{Self, TxContext};
 
     //insipred by 
     //https://docs.medusajs.com/api/admin#tag/Product/operation/PostProducts
@@ -19,7 +19,7 @@ module anything::product_module {
     thumbnail: String,
     handle: String, //slug
     // status: String,
-    type: ProductType,
+    // type: ProductType,
     // collection_id: String,
     // tags: vector<Tag>,
     // sales_channels: vector<SalesChannel>,
