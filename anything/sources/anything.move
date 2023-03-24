@@ -72,11 +72,11 @@ module anything::anything_tests {
     {
         let ctx = test_scenario::ctx(scenario);
         anything::create(
-            "Wow Butter",
-        "Butter that makes you go wow",
-        "Weed butter from pasture raised cows will be your best baking companion",
-        "https://leafly-cms-production.imgix.net/wp-content/uploads/2014/03/29200228/recipe-how-to-make-basic-cannabutter.jpg?auto=format,compress&w=1100",
-        "wow-butter",
+        b"Wow Butter",
+        b"Butter that makes you go wow",
+        b"Weed butter from pasture raised cows will be your best baking companion",
+        b"https://leafly-cms-production.imgix.net/wp-content/uploads/2014/03/29200228/recipe-how-to-make-basic-cannabutter.jpg?auto=format,compress&w=1100",
+        b"wow-butter",
         ctx);
     };
 
