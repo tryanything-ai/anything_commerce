@@ -8,46 +8,46 @@ module anything::anything {
     struct Product has key, store {
         id: UID,
         title: String,
-        // subtitle: String, 
-        // description: String,
-        // thumbnail: String,
-        // handle: String, //slug
-        // status: String,
+        subtitle: String, 
+        description: String,
+        thumbnail: String,
+        handle: String, //slug
+        status: String,
         // vendor: address,
     }
 
    fun new(
     title: vector<u8>,
-    // subtitle: vector<u8>,
-    // description: vector<u8>,
-    // thumbnail: vector<u8>,
-    // handle: vector<u8>, 
+    subtitle: vector<u8>,
+    description: vector<u8>,
+    thumbnail: vector<u8>,
+    handle: vector<u8>, 
       ctx: &mut TxContext
       ): Product {
         Product {
             id: object::new(ctx),
             title: ascii::string(title),
-            // subtitle, 
-            // description, 
-            // thumbnail,
-            // handle, 
-            // status: ascii::string(b"draft"),
+            subtitle: ascii::string(subtitle),
+            description: ascii::string(description),
+            thumbnail: ascii::string(thumbnail),
+            handle: ascii::string(handle),
+            status: ascii::string(b"draft"),
             // vendor: tx_context::sender(ctx), 
             }
     }
 
-    public fun get_product(self: &Product): (String) {
-        (self.title,)
+    public fun get_product(self: &Product): (String, String, String, String, String, String) {
+        (self.title, self.subtitle, self.description, self.thumbnail, self.handle, self.status)
     }
 
     public entry fun create(
         title: vector<u8>,
-        // subtitle: vector<u8>,
-        // description: vector<u8>,
-        // thumbnail: vector<u8>,
-        // handle: vector<u8>,
+        subtitle: vector<u8>,
+        description: vector<u8>,
+        thumbnail: vector<u8>,
+        handle: vector<u8>,
       ctx: &mut TxContext) {
-        let product = new(title, ctx);
+        let product = new(title, subtitle, description, thumbnail, handle, ctx);
         transfer::transfer(product, tx_context::sender(ctx))
     }
 }
@@ -74,10 +74,10 @@ module anything::anything_tests {
         let ctx = test_scenario::ctx(scenario);
         anything::create(
         b"Wow Butter",
-        // b"Butter that makes you go wow",
-        // b"Weed butter from pasture raised cows will be your best baking companion",
-        // b"https://leafly-cms-production.imgix.net/wp-content/uploads/2014/03/29200228/recipe-how-to-make-basic-cannabutter.jpg?auto=format,compress&w=1100",
-        // b"wow-butter",
+        b"Butter that makes you go wow",
+        b"Weed butter from pasture raised cows will be your best baking companion",
+        b"https://leafly-cms-production.imgix.net/wp-content/uploads/2014/03/29200228/recipe-how-to-make-basic-cannabutter.jpg?auto=format,compress&w=1100",
+        b"wow-butter",
         ctx);
     };
 
@@ -95,29 +95,32 @@ module anything::anything_tests {
         
         let (
         title,
-        // subtitle, 
-        // description,
-        // thumbnail,
-        // handle, 
-        // status,
+        subtitle, 
+        description,
+        thumbnail,
+        handle, 
+        status,
         // vendor
         ) = anything::get_product(&object);
 
-        assert!(
-        title == ascii::string(b"Wow Butter"), 0); 
-        // subtitle == b"Butter that makes you go wow" &&
+        assert!(title == ascii::string(b"Wow Butter") && 
+        subtitle == ascii::string(b"Butter that makes you go wow") &&
+        description == ascii::string(b"Weed butter from pasture raised cows will be your best baking companion") &&
+        thumbnail == ascii::string(b"https://leafly-cms-production.imgix.net/wp-content/uploads/2014/03/29200228/recipe-how-to-make-basic-cannabutter.jpg?auto=format,compress&w=1100")
+        , 0);
+        // 
+       
         // description == b"Weed butter from pasture raised cows will be your best baking companion" &&
         // thumbnail == b"https://leafly-cms-production.imgix.net/wp-content/uploads/2014/03/29200228/recipe-how-to-make-basic-cannabutter.jpg?auto=format,compress&w=1100" &&
         // handle == b"wow-butter" &&
         // status == b"draft" &&
         // vendor == owner
-        // );
+       
 
-        test_scenario::return_to_sender(scenario, object);
+    test_scenario::return_to_sender(scenario, object);
     };
     test_scenario::end(scenario_val);
     }
-
 }
 
 //   text: vector<u8>,
